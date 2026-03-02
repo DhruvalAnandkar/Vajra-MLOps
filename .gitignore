@@ -1,0 +1,95 @@
+# -------------------------------------------------------------------
+# Vajra: The Self-Healing MLOps Orchestrator
+# Production-Grade .gitignore
+# -------------------------------------------------------------------
+
+# ==========================================
+# 1. Python & ML Artifacts
+# ==========================================
+# Python caching
+__pycache__/
+*.pyc
+*.pyo
+
+# Virtual Environments
+venv/
+env/
+.venv/
+.env/
+
+# ML Models and Weights
+# Ignore binary models but keep the directory structure intact
+models/*
+!models/.gitkeep
+*.json
+*.pkl
+*.joblib
+# Keep the production registry as it may define current active state
+!production_registry.json
+# Ensure package.json, package-lock.json aren't ignored
+!package*.json
+
+# ==========================================
+# 2. Database & Infrastructure Volumes
+# ==========================================
+# Docker Database Volumes
+pgdata/
+redpanda_data/
+docker_data/
+db_data/
+kafka_data/
+
+# Environment configurations containing secrets
+.env
+.env.local
+.env.*
+!.env.example
+
+# ==========================================
+# 3. Frontend & Node.js
+# ==========================================
+# Dependencies
+node_modules/
+frontend/node_modules/
+
+# Vite/React Build Outputs
+dist/
+build/
+frontend/dist/
+frontend/build/
+
+# Node logs
+*.log
+npm-debug.log*
+
+# ==========================================
+# 4. System Junk
+# ==========================================
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# IDEs and Editors
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# ==========================================
+# 5. Miscellaneous
+# ==========================================
+# Testing and Coverage
+.pytest_cache/
+htmlcov/
+.coverage
+.coverage.*
+coverage.xml
+
+# Agent Checkpoints or Temporary Data
+/tmp/
+.ipynb_checkpoints/
