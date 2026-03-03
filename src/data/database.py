@@ -5,11 +5,17 @@ from src.core.config import settings
 
 logger = logging.getLogger(__name__)
 
-DSN = f"postgresql://{settings.DB_USER}:{settings.DB_PASSWORD}@{settings.DB_HOST}:{settings.DB_PORT}/{settings.DB_NAME}"
+DSN = settings.get_database_url
 
 async def get_db_pool():
-    """Create and return an asyncpg connection pool."""
-    pool = await asyncpg.create_pool(dsn=DSN)
+    """Create and return an asyncpg connection pool resilient to cloud drops."""
+    pool = await asyncpg.create_pool(
+        dsn=DSN,
+        min_size=1,
+        max_size=10,
+        max_inactive_connection_lifetime=300, # 5 minutes before recycling
+        command_timeout=60 # Resilient to cloud latency spikes
+    )
     return pool
 
 async def init_db():

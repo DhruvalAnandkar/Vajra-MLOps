@@ -1,12 +1,7 @@
 {
-    "production_model_path": "/app/src/agent/../../models/xgboost_v20260302_221722.json",
-    "deployment_timestamp": "2026-03-02T22:17:22.362993",
+    "production_model_path": "/app/src/agent/../../models/xgboost_v20260303_022442.json",
+    "deployment_timestamp": "2026-03-03T02:24:42.268156",
     "drift_report": {
-        "active_connections": {
-            "p_value": 2.2087606931995054e-59,
-            "statistic": 1.0,
-            "drift_detected": true
-        },
         "memory_usage_mb": {
             "p_value": 2.2087606931995054e-59,
             "statistic": 1.0,
@@ -15,6 +10,11 @@
         "response_time_ms": {
             "p_value": 4.417521386399011e-57,
             "statistic": 0.99,
+            "drift_detected": true
+        },
+        "active_connections": {
+            "p_value": 2.2087606931995054e-59,
+            "statistic": 1.0,
             "drift_detected": true
         }
     }

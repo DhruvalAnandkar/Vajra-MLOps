@@ -63,6 +63,8 @@ services:
       - DB_USER=admin
       - DB_PASSWORD=adminpassword
       - DB_NAME=metrics_db
+      # If DATABASE_URL is set in your .env, it overrides the DB_* vars above and connects to Aiven
+      - DATABASE_URL=${DATABASE_URL:-}
     volumes:
       - ./src:/app/src
       - ./scripts:/app/scripts
@@ -89,6 +91,8 @@ services:
       - DB_USER=admin
       - DB_PASSWORD=adminpassword
       - DB_NAME=metrics_db
+      # If DATABASE_URL is set in your .env, it overrides the DB_* vars above and connects to Aiven
+      - DATABASE_URL=${DATABASE_URL:-}
     volumes:
       - ./src:/app/src
       - ./scripts:/app/scripts

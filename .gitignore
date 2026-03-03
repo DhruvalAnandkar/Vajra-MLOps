@@ -1,71 +1,95 @@
-# -------------------------------------------------------------------
-# Vajra: The Self-Healing MLOps Orchestrator
-# Production-Grade .gitignore
-# -------------------------------------------------------------------
+# ============================================================
+# Vajra MLOps — Comprehensive .gitignore
+# ============================================================
 
-# ==========================================
-# 1. Python & ML Artifacts
-# ==========================================
-# Python caching
+# ============================================================
+# SECURITY — CRITICAL: Never commit secrets
+# ============================================================
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+*.crt
+*.cer
+
+# ============================================================
+# Python / Backend
+# ============================================================
 __pycache__/
 *.pyc
 *.pyo
+*.pyd
+.Python
 
 # Virtual Environments
+.venv/
 venv/
 env/
-.venv/
 .env/
+ENV/
 
-# ML Models and Weights
-# Ignore binary models but keep the directory structure intact
+# Testing & Coverage
+.pytest_cache/
+htmlcov/
+.coverage
+.coverage.*
+coverage.xml
+*.egg-info/
+dist/
+*.egg
+
+# Alembic local migration versions (generated per environment)
+alembic/versions/
+
+# ============================================================
+# ML Models / Artifacts
+# ============================================================
+# Ignore model binaries — track the empty folder via .gitkeep
 models/*
 !models/.gitkeep
-*.json
 *.pkl
 *.joblib
-# Keep the production registry as it may define current active state
-!production_registry.json
-# Ensure package.json, package-lock.json aren't ignored
-!package*.json
 
-# ==========================================
-# 2. Database & Infrastructure Volumes
-# ==========================================
-# Docker Database Volumes
+# Keep production registry — it defines runtime state
+!production_registry.json
+
+# ============================================================
+# Frontend / Node.js
+# ============================================================
+node_modules/
+frontend/node_modules/
+
+# Vite / React Build Outputs
+dist/
+build/
+frontend/dist/
+frontend/build/
+.vite/
+
+# Linting caches
+.eslintcache
+
+# Node logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ============================================================
+# Database & Infrastructure Volumes
+# ============================================================
 pgdata/
 redpanda_data/
 docker_data/
 db_data/
 kafka_data/
 
-# Environment configurations containing secrets
-.env
-.env.local
-.env.*
-!.env.example
-
-# ==========================================
-# 3. Frontend & Node.js
-# ==========================================
-# Dependencies
-node_modules/
-frontend/node_modules/
-
-# Vite/React Build Outputs
-dist/
-build/
-frontend/dist/
-frontend/build/
-
-# Node logs
-*.log
-npm-debug.log*
-
-# ==========================================
-# 4. System Junk
-# ==========================================
-# OS generated files
+# ============================================================
+# OS / IDE artifacts
+# ============================================================
 .DS_Store
 .DS_Store?
 ._*
@@ -74,22 +98,16 @@ npm-debug.log*
 ehthumbs.db
 Thumbs.db
 
-# IDEs and Editors
+# IDEs
 .vscode/
 .idea/
 *.swp
 *.swo
+*.suo
+*.user
 
-# ==========================================
-# 5. Miscellaneous
-# ==========================================
-# Testing and Coverage
-.pytest_cache/
-htmlcov/
-.coverage
-.coverage.*
-coverage.xml
-
-# Agent Checkpoints or Temporary Data
-/tmp/
+# ============================================================
+# Miscellaneous
+# ============================================================
 .ipynb_checkpoints/
+/tmp/

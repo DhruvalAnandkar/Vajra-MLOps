@@ -11,9 +11,32 @@ import asyncpg
 from src.agent.workflow import create_sre_workflow
 from src.agent.state import SREState
 
+from src.core.config import settings
+import logging
+
+api_logger = logging.getLogger(__name__)
+
+def mask_url(url: str) -> str:
+    """Masks the password in the database URL."""
+    if not url:
+        return "None"
+    try:
+        parts = url.split("@")
+        if len(parts) > 1:
+            credentials = parts[0]
+            host_info = parts[1]
+            cred_parts = credentials.split(":")
+            if len(cred_parts) >= 3:
+                return f"{cred_parts[0]}:{cred_parts[1]}:****@{host_info}"
+        return url
+    except Exception:
+        return "*****"
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     # Startup: Initialize the Kafka producer
+    masked_db = mask_url(settings.get_database_url)
+    api_logger.info(f"[Vajra-SRE] API is starting. Connecting DB to: {masked_db}")
     await get_kafka_producer()
     yield
     # Shutdown: Close the Kafka producer gracefully
