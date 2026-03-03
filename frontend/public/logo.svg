@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100" role="img" aria-label="Vajra MLOps Logo">
+  <defs>
+    <!-- Primary gradient: deep navy to cyber blue -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#092540;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0F3D6E;stop-opacity:1" />
+    </linearGradient>
+    <!-- Bolt / accent gradient -->
+    <linearGradient id="boltGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#00D4FF;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0088CC;stop-opacity:1" />
+    </linearGradient>
+    <!-- Glow filter for nodes -->
+    <filter id="glow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="1.5" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background circle -->
+  <circle cx="50" cy="50" r="48" fill="url(#bgGrad)" />
+
+  <!-- =============================================
+       NEURAL NETWORK RING (MLOps Pipeline)
+       3 outer nodes connected by arcs
+  ============================================= -->
+  <!-- Node connectors (drawn first, behind nodes) -->
+  <!-- Top-left to top-right -->
+  <path d="M 26 30 Q 50 14 74 30" stroke="#00D4FF" stroke-width="1.2" fill="none" stroke-opacity="0.45"/>
+  <!-- Top-right to bottom -->
+  <path d="M 74 30 Q 84 62 58 76" stroke="#00D4FF" stroke-width="1.2" fill="none" stroke-opacity="0.45"/>
+  <!-- Bottom to top-left -->
+  <path d="M 42 76 Q 16 62 26 30" stroke="#00D4FF" stroke-width="1.2" fill="none" stroke-opacity="0.45"/>
+  <!-- Center to each node (pipeline spokes) -->
+  <line x1="50" y1="50" x2="26" y2="30" stroke="#00D4FF" stroke-width="0.9" stroke-opacity="0.3"/>
+  <line x1="50" y1="50" x2="74" y2="30" stroke="#00D4FF" stroke-width="0.9" stroke-opacity="0.3"/>
+  <line x1="50" y1="50" x2="50" y2="76" stroke="#00D4FF" stroke-width="0.9" stroke-opacity="0.3"/>
+
+  <!-- Outer Nodes -->
+  <circle cx="26" cy="30" r="4.5" fill="#00D4FF" filter="url(#glow)" opacity="0.9"/>
+  <circle cx="74" cy="30" r="4.5" fill="#00D4FF" filter="url(#glow)" opacity="0.9"/>
+  <circle cx="50" cy="76" r="4.5" fill="#00D4FF" filter="url(#glow)" opacity="0.9"/>
+
+  <!-- Center hub node -->
+  <circle cx="50" cy="50" r="6" fill="#0088CC" stroke="#00D4FF" stroke-width="1.5" filter="url(#glow)"/>
+  <circle cx="50" cy="50" r="2.5" fill="#00D4FF"/>
+
+  <!-- =============================================
+       VAJRA THUNDERBOLT (center, over everything)
+       Classic double-headed diamond bolt shape
+  ============================================= -->
+  <polygon
+    points="50,24 56,41 53,41 60,50 53,50 58,58 50,58 50,76 44,58 42,58 47,50 40,50 47,41 44,41"
+    fill="url(#boltGrad)"
+    opacity="0"
+  />
+
+  <!-- Clean, crisp lightning bolt -->
+  <path
+    d="M 52 26 L 44 47 L 49 47 L 41 72 L 57 49 L 51 49 Z"
+    fill="url(#boltGrad)"
+    filter="url(#glow)"
+  />
+
+  <!-- Outer ring for polish -->
+  <circle cx="50" cy="50" r="48" fill="none" stroke="#00D4FF" stroke-width="1" stroke-opacity="0.25"/>
+</svg>
