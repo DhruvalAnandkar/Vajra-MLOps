@@ -7,6 +7,7 @@ import numpy as np
 from src.agent.state import SREState
 from src.models.drift_detector import DriftMonitor
 from src.models.baseline import BaselineModel
+from src.utils.notifications import send_discord_alert
 
 logger = logging.getLogger(__name__)
 
@@ -52,9 +53,19 @@ async def evaluate_drift_node(state: SREState) -> SREState:
     
     if drift_detected:
         logger.warning("Drift evaluation completed: ALERT! Drift Detected.")
+        # Extract the minimum p-value across all features for the alert message
+        min_p = min(
+            (v.get("p_value", 1.0) for v in report.values() if isinstance(v, dict)),
+            default=0.0
+        )
+        await send_discord_alert(
+            f"🚨 **[Vajra-SRE] Data Drift Detected**\n"
+            f"KS-Test p-value: `{min_p:.6f}` — threshold breached.\n"
+            f"Initializing autonomous retraining sequence..."
+        )
     else:
         logger.info("Drift evaluation completed: Data distributions are stable.")
-        
+
     return state
 
 async def retrain_model_node(state: SREState) -> SREState:
@@ -114,7 +125,14 @@ async def deploy_model_node(state: SREState) -> SREState:
     
     with open(registry_path, "w") as f:
         json.dump(registry_data, f, indent=4)
-        
+
+    # Derive a clean artifact ID (filename only) for the alert
+    artifact_id = os.path.basename(state['new_model_path'])
     logger.info(f"Deployment successful. production_registry.json updated to point to {state['new_model_path']}.")
-    
+    await send_discord_alert(
+        f"✅ **[Vajra-SRE] Model Successfully Retrained and Deployed**\n"
+        f"Version: `{artifact_id}`\n"
+        f"Registry updated at `{datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S UTC')}`"
+    )
+
     return state
