@@ -118,12 +118,18 @@ async def ingest_metrics(metrics: ServerMetrics, background_tasks: BackgroundTas
 
 @app.get("/api/telemetry")
 async def get_telemetry():
-    """Fetch the latest 100 metrics asynchronously from the database."""
+    """Fetch the latest 50 metrics from the database, ordered by most recent first."""
     try:
-        conn = await asyncpg.connect(dsn=DSN)
-        rows = await conn.fetch("SELECT timestamp, cpu_usage_percent FROM server_metrics ORDER BY timestamp DESC LIMIT 100")
-        await conn.close()
-        return [dict(row) for row in rows]
+        async with asyncio.timeout(10):  # 10s hard cap — protects against Aiven cold starts
+            conn = await asyncpg.connect(dsn=DSN)
+            rows = await conn.fetch(
+                "SELECT timestamp, cpu_usage_percent FROM server_metrics ORDER BY timestamp DESC LIMIT 50"
+            )
+            await conn.close()
+            return [dict(row) for row in rows]
+    except asyncio.TimeoutError:
+        api_logger.warning("[Vajra-SRE] /api/telemetry timed out — Aiven may be cold-starting.")
+        raise HTTPException(status_code=504, detail="Database query timed out. Please retry.")
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Database connection error: {str(e)}")
 
