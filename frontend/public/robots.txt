@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://vajra-ml-ops.vercel.app/sitemap.xml
