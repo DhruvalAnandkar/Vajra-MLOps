@@ -16,7 +16,7 @@ This system is a decoupled, event-driven microservices architecture:
 * **Autonomous Orchestration:** LangGraph SRE Agent that acts as the "Manager" for model retraining and deployment.
 * **Modern Frontend:** React & Framer Motion for a venture-grade Command Center.
 
-## 🛠️ Key Engineering Features
+##  Key Engineering Features
 * **Environment-Agnostic:** Seamless migration from local Docker networks to managed cloud instances via DSN injection.
 * **Deterministic Scaling:** Moves beyond LLM "hallucinations" by using hard math to govern SRE system decisions.
 * **Automated Retraining:** The SRE Agent detects performance degradation and autonomously trains a "challenger" model on live cloud data.
