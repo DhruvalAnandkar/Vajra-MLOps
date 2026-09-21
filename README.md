@@ -1,13 +1,13 @@
-# ⚡ Vajra: Autonomous MLOps & Self-Healing AI Pipeline
+#  Vajra: Autonomous MLOps & Self-Healing AI Pipeline
 
 ## Link: https://vajra-ml-ops.vercel.app/
 
-## 🧠 The Vision
+##  The Vision
 Standard Machine Learning models are "static"—they are trained once and then slowly become inaccurate as the real world changes (Data Drift). 
 
 **Vajra** (named after the indestructible, self-healing weapon) solves this by building a deterministic AI Brain. When server environments hit periods of Data Drift (like a massive traffic spike), Vajra detects the drop in predictive accuracy and autonomously triggers a retraining and deployment sequence to adapt to the new reality—zero human intervention required.
 
-## 🏗️ Cloud-Native Architecture
+##  Cloud-Native Architecture
 This system is a decoupled, event-driven microservices architecture:
 * **Data Ingestion:** FastAPI & Redpanda (Kafka) for high-speed server telemetry streaming.
 * **Cloud Persistence:** Managed **TimescaleDB (PostgreSQL) on Aiven Cloud** optimized for high-volume time-series metrics.
@@ -21,7 +21,7 @@ This system is a decoupled, event-driven microservices architecture:
 * **Deterministic Scaling:** Moves beyond LLM "hallucinations" by using hard math to govern SRE system decisions.
 * **Automated Retraining:** The SRE Agent detects performance degradation and autonomously trains a "challenger" model on live cloud data.
 
-## 🚀 Quick Start
+##  Quick Start
 ```bash
 git clone [https://github.com/DhruvalAnandkar/Vajra-MLOps.git](https://github.com/DhruvalAnandkar/Vajra-MLOps.git)
 cd Vajra-MLOps
